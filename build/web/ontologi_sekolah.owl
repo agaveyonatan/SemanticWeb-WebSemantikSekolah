@@ -1,0 +1,1356 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY ontologi_sekolah "http://www.semanticweb.org/ontologi_sekolah#" >
+    <!ENTITY ontologi_sekolah2 "http://www.semanticweb.org/ontologi_sekolah.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.semanticweb.org/lenovo/ontologies/2020/9/covid19#"
+     xml:base="http://www.semanticweb.org/lenovo/ontologies/2020/9/covid19"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:ontologi_sekolah2="http://www.semanticweb.org/ontologi_sekolah.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:ontologi_sekolah="http://www.semanticweb.org/ontologi_sekolah#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/ontologi_sekolah.owl">
+        <rdfs:label>author : Agave Yonatan</rdfs:label>
+        <rdfs:label>Sparql:
+
+1. Mencari murid yang mempelajari pelajaran matematika:
+
+PREFIX : &lt;http://www.semanticweb.org/ontologi_sekolah.owl#&gt;
+PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+SELECT ?MURID ?PELAJARAN
+WHERE { ?MURID :mempelajari ?PELAJARAN.
+?PELAJARAN :kode_pelajaran ?value.
+FILTER(?value = &apos;mtk&apos; )
+} 
+
+2. Mencari murid yang diajar oleh Ibu Siska Pratiwi
+
+PREFIX : &lt;http://www.semanticweb.org/ontologi_sekolah.owl#&gt;
+PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+SELECT ?MURID ?GURU
+WHERE { ?MURID :diajar_oleh ?GURU.
+?GURU :kode_guru ?value.
+FILTER(?value = &apos;sp&apos; )
+}
+
+3. Mencari pelajaran yang dipelajari oleh murid di kelas 12
+
+PREFIX : &lt;http://www.semanticweb.org/ontologi_sekolah.owl#&gt;
+PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+SELECT ?PELAJARAN ?MURID
+WHERE { ?PELAJARAN :dipelajari_oleh ?MURID.
+?MURID :kelas ?value.
+FILTER(?value = &apos;12&apos; )
+}
+
+4. Mencari murid yang mempelajari pelajaran matematika dan dia berasal dari Jambi
+
+PREFIX : &lt;http://www.semanticweb.org/ontologi_sekolah.owl#&gt;
+PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+SELECT ?MURID ?PELAJARAN
+WHERE { ?MURID :mempelajari ?PELAJARAN.
+?PELAJARAN :kode_pelajaran ?value1.
+?MURID :asal ?value2.
+FILTER(?value1 = &apos;mtk&apos; &amp;&amp; ?value2 = &apos;jambi&apos;  )
+}
+
+5. Mencari guru yang mengajar pelajaran matematika dan murid yang diajar siapa
+
+PREFIX : &lt;http://www.semanticweb.org/ontologi_sekolah.owl#&gt;
+PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+SELECT ?GURU ?PELAJARAN ?MURID
+WHERE { 
+?GURU :mengajar ?PELAJARAN.
+?MURID :diajar_oleh ?GURU.
+?PELAJARAN :kode_pelajaran ?value.
+?GURU :kode_guru ?value2.
+FILTER(?value = &apos;mtk&apos; )
+FILTER(?value2 = &apos;frs&apos; )
+} 
+
+6. Mencari guru yang mengajar pelajaran olahraga di kelas 11 beserta anak muridnya
+
+PREFIX : &lt;http://www.semanticweb.org/ontologi_sekolah.owl#&gt;
+PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+SELECT ?GURU ?PELAJARAN ?MURID
+WHERE { 
+?GURU :mengajar ?PELAJARAN.
+?MURID :diajar_oleh ?GURU.
+
+?PELAJARAN :kode_pelajaran ?value.
+?GURU :kelas ?value2.
+?MURID :kelas ?value3.
+
+FILTER(?value = &apos;or&apos; )
+FILTER(?value2 = &apos;11&apos; )
+FILTER(?value3 = &apos;11&apos; )
+} 
+
+7. Sparql terbaru mengambil data properties
+
+PREFIX : &lt;http://www.semanticweb.org/ontologi_sekolah.owl#&gt;
+PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+SELECT ?nama_siswa ?kd_pelajaran ?kd_guru ?kelas
+WHERE { 
+     ?pelajaran :dipelajari_oleh ?murid.
+     ?pelajaran :kode_pelajaran ?kd_pelajaran.
+     ?murid :mempelajari ?pelajaran.
+     ?murid :nama ?nama_siswa.
+     ?murid :kelas ?kelas.
+     ?guru :mengajar ?pelajaran.
+     ?guru :kode_guru ?kd_guru.
+     ?guru :kelas ?kelas.
+     FILTER(regex(str(?kelas),&quot;11&quot;))
+     FILTER(regex(str(?nama_siswa),&quot;agave&quot;))
+} </rdfs:label>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#diajar_oleh -->
+
+    <owl:ObjectProperty rdf:about="&ontologi_sekolah2;diajar_oleh">
+        <rdfs:range rdf:resource="&ontologi_sekolah2;guru"/>
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;murid"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#dipelajari_oleh -->
+
+    <owl:ObjectProperty rdf:about="&ontologi_sekolah2;dipelajari_oleh">
+        <rdfs:range rdf:resource="&ontologi_sekolah2;murid"/>
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;pelajaran"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#mempelajari -->
+
+    <owl:ObjectProperty rdf:about="&ontologi_sekolah2;mempelajari">
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;murid"/>
+        <rdfs:range rdf:resource="&ontologi_sekolah2;pelajaran"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#mengajar -->
+
+    <owl:ObjectProperty rdf:about="&ontologi_sekolah2;mengajar">
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;guru"/>
+        <rdfs:range rdf:resource="&ontologi_sekolah2;pelajaran"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#asal -->
+
+    <owl:DatatypeProperty rdf:about="&ontologi_sekolah2;asal">
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;guru"/>
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;murid"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#jenis_kelamin -->
+
+    <owl:DatatypeProperty rdf:about="&ontologi_sekolah2;jenis_kelamin">
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;guru"/>
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;murid"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#jenis_pelajaran -->
+
+    <owl:DatatypeProperty rdf:about="&ontologi_sekolah2;jenis_pelajaran">
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;pelajaran"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#jurusan -->
+
+    <owl:DatatypeProperty rdf:about="&ontologi_sekolah2;jurusan">
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;murid"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#kelas -->
+
+    <owl:DatatypeProperty rdf:about="&ontologi_sekolah2;kelas">
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;guru"/>
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;murid"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#kode_guru -->
+
+    <owl:DatatypeProperty rdf:about="&ontologi_sekolah2;kode_guru">
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;guru"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#kode_pelajaran -->
+
+    <owl:DatatypeProperty rdf:about="&ontologi_sekolah2;kode_pelajaran">
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;pelajaran"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#nama -->
+
+    <owl:DatatypeProperty rdf:about="&ontologi_sekolah2;nama">
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;guru"/>
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;murid"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#nomor_absen -->
+
+    <owl:DatatypeProperty rdf:about="&ontologi_sekolah2;nomor_absen">
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;murid"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#umur -->
+
+    <owl:DatatypeProperty rdf:about="&ontologi_sekolah2;umur">
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;guru"/>
+        <rdfs:domain rdf:resource="&ontologi_sekolah2;murid"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#eksak -->
+
+    <owl:Class rdf:about="&ontologi_sekolah2;eksak">
+        <rdfs:subClassOf rdf:resource="&ontologi_sekolah2;pelajaran"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#guru -->
+
+    <owl:Class rdf:about="&ontologi_sekolah2;guru"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#murid -->
+
+    <owl:Class rdf:about="&ontologi_sekolah2;murid"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#murid_kelas_10 -->
+
+    <owl:Class rdf:about="&ontologi_sekolah2;murid_kelas_10">
+        <rdfs:subClassOf rdf:resource="&ontologi_sekolah2;murid"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#murid_kelas_11 -->
+
+    <owl:Class rdf:about="&ontologi_sekolah2;murid_kelas_11">
+        <rdfs:subClassOf rdf:resource="&ontologi_sekolah2;murid"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#murid_kelas_12 -->
+
+    <owl:Class rdf:about="&ontologi_sekolah2;murid_kelas_12">
+        <rdfs:subClassOf rdf:resource="&ontologi_sekolah2;murid"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#non_eksak -->
+
+    <owl:Class rdf:about="&ontologi_sekolah2;non_eksak">
+        <rdfs:subClassOf rdf:resource="&ontologi_sekolah2;pelajaran"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pelajaran -->
+
+    <owl:Class rdf:about="&ontologi_sekolah2;pelajaran"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#agama_kelas_10 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;agama_kelas_10">
+        <rdf:type rdf:resource="&ontologi_sekolah2;non_eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">10</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">agama</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">agm10</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">non eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">umum</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;garciano"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Budi"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#agama_kelas_11 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;agama_kelas_11">
+        <rdf:type rdf:resource="&ontologi_sekolah2;non_eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">agama</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">agm11</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">non eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">umum</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;agave"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;ferdian"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;mardiana"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Jerry"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#agama_kelas_12 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;agama_kelas_12">
+        <rdf:type rdf:resource="&ontologi_sekolah2;non_eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">agama</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">agm12</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">non eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">umum</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;alvian"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Diana"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;janice"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#agave -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;agave">
+        <rdf:type rdf:resource="&ontologi_sekolah2;murid_kelas_11"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">16</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nomor_absen rdf:datatype="&xsd;string">2</ontologi_sekolah2:nomor_absen>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">agave</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">ipa</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">jambi</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Prita"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Siska_Pratiwi"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_nelis"/>
+        <ontologi_sekolah2:mempelajari rdf:resource="&ontologi_sekolah2;olahraga"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Bernard"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Haryanto"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Hendy_Pratama"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Heri_Santoso"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Jerry"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#akuntansi_kelas_11 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;akuntansi_kelas_11">
+        <rdf:type rdf:resource="&ontologi_sekolah2;eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">akn11</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">akuntansi</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">ips</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;ferdian"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Amelia"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#akuntansi_kelas_12 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;akuntansi_kelas_12">
+        <rdf:type rdf:resource="&ontologi_sekolah2;eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">akn12</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">akuntansi</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">ips</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;janice"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Tandi"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#alvian -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;alvian">
+        <rdf:type rdf:resource="&ontologi_sekolah2;murid_kelas_12"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">17</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nomor_absen rdf:datatype="&xsd;string">3</ontologi_sekolah2:nomor_absen>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">alvian</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">ipa</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">jakarta</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:mempelajari rdf:resource="&ontologi_sekolah2;bahasa_asing"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;bu_Chintya"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Diana"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Elizabeth"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Fransiska"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Rosinta"/>
+        <ontologi_sekolah2:mempelajari rdf:resource="&ontologi_sekolah2;olahraga"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Fredy"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Karyo"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Soni"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Tono"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#bahasa_asing -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;bahasa_asing">
+        <rdf:type rdf:resource="&ontologi_sekolah2;non_eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">asing</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">bahasa asing</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">non_eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">umum</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;alvian"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;bu_Chintya"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;janice"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#bahasa_indonesia_kelas_10 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;bahasa_indonesia_kelas_10">
+        <rdf:type rdf:resource="&ontologi_sekolah2;non_eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">10</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">bahasa indonesia</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">indo10</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">non eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">umum</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;bu_tiurma"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;garciano"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#bahasa_indonesia_kelas_11 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;bahasa_indonesia_kelas_11">
+        <rdf:type rdf:resource="&ontologi_sekolah2;non_eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">bahasa indonesia</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">indo11</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">non eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">umum</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;agave"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;ferdian"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;mardiana"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Hendy_Pratama"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#bahasa_indonesia_kelas_12 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;bahasa_indonesia_kelas_12">
+        <rdf:type rdf:resource="&ontologi_sekolah2;non_eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">bahasa indonesia</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">indo12</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">non eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">umum</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;alvian"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;janice"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Tono"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#bahasa_inggris_kelas_10 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;bahasa_inggris_kelas_10">
+        <rdf:type rdf:resource="&ontologi_sekolah2;non_eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">10</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">bahasa inggris</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">ing10</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">non eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">umum</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;garciano"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Johanes"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#bahasa_inggris_kelas_11 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;bahasa_inggris_kelas_11">
+        <rdf:type rdf:resource="&ontologi_sekolah2;non_eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">bahasa inggris</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">ing11</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">non eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">umum</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;agave"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;ferdian"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Prita"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;mardiana"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#bahasa_inggris_kelas_12 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;bahasa_inggris_kelas_12">
+        <rdf:type rdf:resource="&ontologi_sekolah2;non_eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">bahasa inggris</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">ing12</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">non eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">umum</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;alvian"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;janice"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Karyo"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#biologi_kelas_11 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;biologi_kelas_11">
+        <rdf:type rdf:resource="&ontologi_sekolah2;eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">bio11</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">biologi</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">ipa</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;agave"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_nelis"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;mardiana"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#biologi_kelas_12 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;biologi_kelas_12">
+        <rdf:type rdf:resource="&ontologi_sekolah2;eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">bio12</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">biologi</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">ipa</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;alvian"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Rosinta"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#bu_Chintya -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;bu_Chintya">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">27</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Chintya Herawati</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">chn</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">jakarta</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">perempuan</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;bahasa_asing"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#bu_tiurma -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;bu_tiurma">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">10</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">36</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Tiurma Manulang</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">perempuan</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">semarang</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">trm</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;bahasa_indonesia_kelas_10"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#ekonomi -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;ekonomi">
+        <rdf:type rdf:resource="&ontologi_sekolah2;eksak"/>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">ekon</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;ferdian"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;janice"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#ferdian -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;ferdian">
+        <rdf:type rdf:resource="&ontologi_sekolah2;murid_kelas_11"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">16</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nomor_absen rdf:datatype="&xsd;string">8</ontologi_sekolah2:nomor_absen>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">ferdian</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">ips</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki
+</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">solo</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:mempelajari rdf:resource="&ontologi_sekolah2;ekonomi"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Amelia"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Martini"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Prita"/>
+        <ontologi_sekolah2:mempelajari rdf:resource="&ontologi_sekolah2;olahraga"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Bernard"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Deny"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Haryanto"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Hendy_Pratama"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Jerry"/>
+        <ontologi_sekolah2:mempelajari rdf:resource="&ontologi_sekolah2;sejarah"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#fisika_kelas_11 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;fisika_kelas_11">
+        <rdf:type rdf:resource="&ontologi_sekolah2;eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">fis11</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">fisika</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">ipa</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;agave"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Siska_Pratiwi"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;mardiana"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#fisika_kelas_12 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;fisika_kelas_12">
+        <rdf:type rdf:resource="&ontologi_sekolah2;eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">fis12</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">fisika</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">ipa</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;alvian"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Fredy"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#garciano -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;garciano">
+        <rdf:type rdf:resource="&ontologi_sekolah2;murid_kelas_10"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">10</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">15</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nomor_absen rdf:datatype="&xsd;string">18</ontologi_sekolah2:nomor_absen>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">gorontalo</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">grace</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki-laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;bu_tiurma"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Shinta"/>
+        <ontologi_sekolah2:mempelajari rdf:resource="&ontologi_sekolah2;olahraga"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Adi_Yogo"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Budi"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Cahyo"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Johanes"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Lauren"/>
+        <ontologi_sekolah2:mempelajari rdf:resource="&ontologi_sekolah2;sejarah"/>
+        <ontologi_sekolah2:mempelajari rdf:resource="&ontologi_sekolah2;seni"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#ibu_Amelia -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;ibu_Amelia">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">29</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Sri Amelia </ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">am</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">medan</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">perempuan</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;akuntansi_kelas_11"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#ibu_Diana -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;ibu_Diana">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">33</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Diana Larasati</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">dian</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">perempuan</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">tegal</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;agama_kelas_12"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#ibu_Elizabeth -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;ibu_Elizabeth">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">35</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Elizabeth Dermawan</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">ez</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">perempuan</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">surabaya</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;kimia_kelas_12"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#ibu_Fransiska -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;ibu_Fransiska">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">29</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Fransika Eterna</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">frs</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">palembang</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">perempuan</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;matematika_kelas_12"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#ibu_Martini -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;ibu_Martini">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">26</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">bogor</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">mrt</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">perempuan</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;sejarah"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#ibu_Prita -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;ibu_Prita">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">30</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Prita Hosana</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">medan</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">perempuan</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">prt</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;bahasa_inggris_kelas_11"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#ibu_Rosinta -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;ibu_Rosinta">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">26</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Rosinta</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">perempuan</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">rsn</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">sidoarjo</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;biologi_kelas_12"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#ibu_Ruth -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;ibu_Ruth">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">34</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">ambon</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">perempuan</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">rth</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;ekonomi"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#ibu_Shinta -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;ibu_Shinta">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">10</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">32</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">perempuan</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">shn</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">surabaya</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;sejarah"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#ibu_Siska_Pratiwi -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;ibu_Siska_Pratiwi">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">34</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Siska Pratiwi</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">bekasi</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">perempuan</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">sp</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;fisika_kelas_11"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#ibu_nelis -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;ibu_nelis">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">25</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Nelis Suksma</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">medan</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">nls</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">perempuan</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;biologi_kelas_11"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#janice -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;janice">
+        <rdf:type rdf:resource="&ontologi_sekolah2;murid_kelas_12"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:nomor_absen rdf:datatype="&xsd;string">14</ontologi_sekolah2:nomor_absen>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">17</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">ips</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">jakarta</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">janice</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">perempuan</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:mempelajari rdf:resource="&ontologi_sekolah2;bahasa_asing"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;bu_Chintya"/>
+        <ontologi_sekolah2:mempelajari rdf:resource="&ontologi_sekolah2;ekonomi"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Diana"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Fransiska"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Ruth"/>
+        <ontologi_sekolah2:mempelajari rdf:resource="&ontologi_sekolah2;olahraga"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Alam"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Karyo"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Soni"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Tandi"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Tono"/>
+        <ontologi_sekolah2:mempelajari rdf:resource="&ontologi_sekolah2;sejarah"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#kimia_kelas_11 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;kimia_kelas_11">
+        <rdf:type rdf:resource="&ontologi_sekolah2;eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">ipa</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">kim11</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">kimia</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;agave"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;mardiana"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Heri_Santoso"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#kimia_kelas_12 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;kimia_kelas_12">
+        <rdf:type rdf:resource="&ontologi_sekolah2;eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">ipa</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">kim12</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">kimia</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;alvian"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Elizabeth"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#mardiana -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;mardiana">
+        <rdf:type rdf:resource="&ontologi_sekolah2;murid_kelas_11"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">16</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nomor_absen rdf:datatype="&xsd;string">21</ontologi_sekolah2:nomor_absen>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">ipa</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">jambi</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">mardiana</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">perempuan</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Martini"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Prita"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Siska_Pratiwi"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_nelis"/>
+        <ontologi_sekolah2:mempelajari rdf:resource="&ontologi_sekolah2;olahraga"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Bernard"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Haryanto"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Hendy_Pratama"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Heri_Santoso"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Jerry"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#matematika_kelas_10 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;matematika_kelas_10">
+        <rdf:type rdf:resource="&ontologi_sekolah2;eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">10</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">matematika</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">mtk10</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">umum</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;garciano"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Cahyo"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#matematika_kelas_11 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;matematika_kelas_11">
+        <rdf:type rdf:resource="&ontologi_sekolah2;eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">matematika</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">mtk11</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">umum</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;agave"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;ferdian"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;mardiana"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Haryanto"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#matematika_kelas_12 -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;matematika_kelas_12">
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">matematika</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">mtk12</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">umum</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;alvian"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;ibu_Fransiska"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;janice"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#olahraga -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;olahraga">
+        <rdf:type rdf:resource="&ontologi_sekolah2;non_eksak"/>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">non_eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">or</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;agave"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;alvian"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;ferdian"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;garciano"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;janice"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;mardiana"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Adi_Yogo -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Adi_Yogo">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">10</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">26</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">ay</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">semarang</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;olahraga"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Alam -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Alam">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">29</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">al</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">bandung</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;sejarah"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Bernard -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Bernard">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">28</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">bern</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">jepara</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;olahraga"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Budi -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Budi">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">10</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">46</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Budi Hartono</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">bandung</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">bd</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;agama_kelas_10"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Cahyo -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Cahyo">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">10</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">31</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Cahyo Utomo</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">ch</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">padang</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;matematika_kelas_10"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Deny -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Deny">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">34</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">dn</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">yogyakarta</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;ekonomi"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Fredy -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Fredy">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">27</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Fredy Hartono</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">bali</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">frd</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;fisika_kelas_12"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Haryanto -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Haryanto">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">28</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Haryanto Kusumo</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">banjarmasin</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">hr</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;matematika_kelas_11"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Hendy_Pratama -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Hendy_Pratama">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">30</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Hendy Pratama</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">hp</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">palembang</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;bahasa_indonesia_kelas_11"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Heri_Santoso -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Heri_Santoso">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">45</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Heri Santoso</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">hs</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">surabaya</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;kimia_kelas_11"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Jerry -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Jerry">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">11</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">40</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Jerry Santoso</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">jr</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">solo</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;agama_kelas_11"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Johanes -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Johanes">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">10</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">43</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Johanes Sumarmo</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">jhn</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">yogyakarta</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;bahasa_inggris_kelas_10"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Karyo -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Karyo">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">26</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Karyo Husodo</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">kry</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">semarang</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;bahasa_inggris_kelas_12"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Lauren -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Lauren">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">25</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Lauren Setiyoso</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">bali</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">lrn</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;seni"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Soni -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Soni">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">31</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">bengkulu</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">sn</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;olahraga"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Tandi -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Tandi">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">25</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Tandi Sanjaya</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">palembang</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">tnd</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;akuntansi_kelas_12"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#pak_Tono -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;pak_Tono">
+        <rdf:type rdf:resource="&ontologi_sekolah2;guru"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">12</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:umur rdf:datatype="&xsd;string">27</ontologi_sekolah2:umur>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">Tono Martono</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jenis_kelamin rdf:datatype="&xsd;string">laki_laki</ontologi_sekolah2:jenis_kelamin>
+        <ontologi_sekolah2:asal rdf:datatype="&xsd;string">palangkaraya</ontologi_sekolah2:asal>
+        <ontologi_sekolah2:kode_guru rdf:datatype="&xsd;string">tn</ontologi_sekolah2:kode_guru>
+        <ontologi_sekolah2:mengajar rdf:resource="&ontologi_sekolah2;bahasa_indonesia_kelas_12"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#sejarah -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;sejarah">
+        <rdf:type rdf:resource="&ontologi_sekolah2;non_eksak"/>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">non_eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">sjrh</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;ferdian"/>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;janice"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologi_sekolah.owl#seni -->
+
+    <owl:NamedIndividual rdf:about="&ontologi_sekolah2;seni">
+        <rdf:type rdf:resource="&ontologi_sekolah2;non_eksak"/>
+        <ontologi_sekolah2:kelas rdf:datatype="&xsd;string">10</ontologi_sekolah2:kelas>
+        <ontologi_sekolah2:nama rdf:datatype="&xsd;string">kesenian</ontologi_sekolah2:nama>
+        <ontologi_sekolah2:jenis_pelajaran rdf:datatype="&xsd;string">non_eksak</ontologi_sekolah2:jenis_pelajaran>
+        <ontologi_sekolah2:kode_pelajaran rdf:datatype="&xsd;string">seni</ontologi_sekolah2:kode_pelajaran>
+        <ontologi_sekolah2:jurusan rdf:datatype="&xsd;string">umum</ontologi_sekolah2:jurusan>
+        <ontologi_sekolah2:dipelajari_oleh rdf:resource="&ontologi_sekolah2;garciano"/>
+        <ontologi_sekolah2:diajar_oleh rdf:resource="&ontologi_sekolah2;pak_Lauren"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
